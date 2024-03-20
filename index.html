@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 0 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+input[type="text"], input[type="time"] {
+    width: calc(100% - 100px);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f2f2f2;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+li:hover {
+    background-color: #ddd;
+}
+
+.deleteBtn, .editBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.deleteBtn:hover, .editBtn:hover {
+    color: #f44336;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+</style>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter task">
+        <input type="time" id="taskTime">
+        <button id="addTaskBtn">Add Task</button>
+        <ul id="taskList">
+            <!-- Tasks will be added dynamically here -->
+        </ul>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const taskInput = document.getElementById("taskInput");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const taskList = document.getElementById("taskList");
+
+    addTaskBtn.addEventListener("click", function() {
+        const taskText = taskInput.value.trim();
+        if (taskText !== "") {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                ${taskText}
+                <button class="deleteBtn">Delete</button>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = "";
+            attachDeleteListener(li);
+        }
+    });
+
+    function attachDeleteListener(li) {
+        const deleteBtn = li.querySelector(".deleteBtn");
+        deleteBtn.addEventListener("click", function() {
+            li.remove();
+        });
+    }
+});
+    </script>
+</body>
+</html>
